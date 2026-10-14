@@ -2,6 +2,7 @@
 import argparse
 import sys
 
+from . import __version__
 from .store import TodoStore, default_path
 
 
@@ -58,6 +59,9 @@ def build_parser():
         "--data-file",
         default=None,
         help=f"数据文件路径（默认 {default_path()}）",
+    )
+    p.add_argument(
+        "--version", action="version", version=f"%(prog)s {__version__}"
     )
     sub = p.add_subparsers(dest="cmd", required=True, metavar="子命令")
 

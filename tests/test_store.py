@@ -102,5 +102,18 @@ class TestTodoStore(unittest.TestCase):
             self.assertEqual(default_path(), Path.home() / ".todo-cli.json")
 
 
+    def test_version_flag(self):
+        import subprocess
+        import sys
+        from pathlib import Path
+        pkg = Path(__file__).resolve().parent.parent
+        r = subprocess.run(
+            [sys.executable, "-m", "todo", "--version"],
+            capture_output=True, text=True, cwd=pkg,
+        )
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("0.2.0", r.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()
