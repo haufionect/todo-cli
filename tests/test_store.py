@@ -140,5 +140,13 @@ class TestTodoStore(unittest.TestCase):
         self.assertEqual(len(self.store.search("buy")), 1)
 
 
+    def test_done_records_timestamp(self):
+        self.store.add("a")
+        self.store.done(1)
+        done_at = self.store.get(1).get("done_at")
+        self.assertIsNotNone(done_at)
+        self.assertRegex(done_at, r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$")
+
+
 if __name__ == "__main__":
     unittest.main()
